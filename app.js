@@ -1,10 +1,16 @@
 const STORAGE_KEY = 'tasklist.tasks';
 
+function hasStorage() {
+  return typeof localStorage !== 'undefined';
+}
+
 function getTodayKey() {
   return new Date().toISOString().split('T')[0];
 }
 
 function loadTasks() {
+  if (!hasStorage()) return [];
+
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return [];
 
@@ -17,6 +23,7 @@ function loadTasks() {
 }
 
 function saveTasks(tasks) {
+  if (!hasStorage()) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
@@ -108,6 +115,6 @@ function initTaskApp() {
   renderTasks();
 }
 
-if (typeof document !== 'undefined' && typeof localStorage !== 'undefined') {
+if (typeof document !== 'undefined' && hasStorage()) {
   initTaskApp();
 }

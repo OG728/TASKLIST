@@ -1,6 +1,12 @@
 const STORAGE_KEY = 'tasklist.tasks';
 
+function hasStorage() {
+  return typeof localStorage !== 'undefined';
+}
+
 function loadTasks() {
+  if (!hasStorage()) return [];
+
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return [];
 
@@ -112,6 +118,6 @@ function initCalendarApp() {
   renderCalendar();
 }
 
-if (typeof document !== 'undefined' && typeof localStorage !== 'undefined') {
+if (typeof document !== 'undefined' && hasStorage()) {
   initCalendarApp();
 }
