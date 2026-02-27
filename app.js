@@ -1,15 +1,19 @@
 const STORAGE_KEY = 'tasklist.tasks';
+const hasDOM = typeof document !== 'undefined';
+const hasStorage = typeof localStorage !== 'undefined';
 
-const taskForm = document.getElementById('task-form');
-const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list');
-const emptyState = document.getElementById('empty-state');
+const taskForm = hasDOM ? document.getElementById('task-form') : null;
+const taskInput = hasDOM ? document.getElementById('task-input') : null;
+const taskList = hasDOM ? document.getElementById('task-list') : null;
+const emptyState = hasDOM ? document.getElementById('empty-state') : null;
 
 function getTodayKey() {
   return new Date().toISOString().split('T')[0];
 }
 
 function loadTasks() {
+  if (!hasStorage) return [];
+
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return [];
 
@@ -22,10 +26,13 @@ function loadTasks() {
 }
 
 function saveTasks(tasks) {
+  if (!hasStorage) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
 function renderTasks() {
+  if (!taskList || !emptyState) return;
+
   const tasks = loadTasks();
   taskList.innerHTML = '';
   emptyState.style.display = tasks.length ? 'none' : 'block';
@@ -91,13 +98,17 @@ function removeTask(id) {
   renderTasks();
 }
 
-taskForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const text = taskInput.value.trim();
-  if (!text) return;
-  addTask(text);
-  taskInput.value = '';
-  taskInput.focus();
-});
+if (taskForm && taskInput) {
+  taskForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const text = taskInput.value.trim();
+    if (!text) return;
+    addTask(text);
+    taskInput.value = '';
+    taskInput.focus();
+  });
+}
 
-renderTasks();
+if (hasDOM) {
+  renderTasks();
+}
