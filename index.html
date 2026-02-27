@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskList | To-Do</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>TaskList</h1>
+      <nav>
+        <a class="active" href="index.html">To-Do</a>
+        <a href="calendar.html">Calendar</a>
+      </nav>
+    </header>
+
+    <main class="card">
+      <h2>Add and Track Tasks</h2>
+      <form id="task-form" class="task-form">
+        <input id="task-input" type="text" placeholder="Add a new task..." required maxlength="120" />
+        <button type="submit">Add Task</button>
+      </form>
+
+      <p id="empty-state" class="empty-state">No tasks yet. Add one to get started.</p>
+      <ul id="task-list" class="task-list" aria-live="polite"></ul>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

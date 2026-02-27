@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskList | Calendar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>TaskList</h1>
+      <nav>
+        <a href="index.html">To-Do</a>
+        <a class="active" href="calendar.html">Calendar</a>
+      </nav>
+    </header>
+
+    <main class="card">
+      <div class="calendar-header">
+        <button id="prev-month" aria-label="Previous month">←</button>
+        <h2 id="month-label"></h2>
+        <button id="next-month" aria-label="Next month">→</button>
+      </div>
+      <p class="calendar-help">Color scale: red (0%) to green (100%) based on completed tasks out of total tasks created that day.</p>
+      <div id="calendar-grid" class="calendar-grid"></div>
+    </main>
+
+    <script src="calendar.js"></script>
+  </body>
+</html>
